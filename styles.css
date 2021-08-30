@@ -65,31 +65,3 @@ body{
 .controls__color + .controls__color{
 	margin-left: 16px;
 }
-
-.controls__color:nth-child(1){
-	background-color: #2c2c2c;
-}
-.controls__color:nth-child(2){
-	background-color: #fff;
-}
-.controls__color:nth-child(3){
-	background-color: #ff3b30;
-}
-.controls__color:nth-child(4){
-	background-color: #ff9500;
-}
-.controls__color:nth-child(5){
-	background-color: #ffcc00;
-}
-.controls__color:nth-child(6){
-	background-color: #4cd963;
-}
-.controls__color:nth-child(7){
-	background-color: #5ac8fa
-}
-.controls__color:nth-child(8){
-	background-color: #0579ff;
-}
-.controls__color:nth-child(9){
-	background-color: #5856d6;
-}
