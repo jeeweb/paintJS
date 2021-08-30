@@ -3,11 +3,15 @@ const ctx = canvas.getContext("2d");
 const colors = document.querySelectorAll(".jsColor");
 const range = document.getElementById("jsRange");
 const mode = document.getElementById("jsMode");
+const clearBtn = document.getElementById("jsClear");
 const saveBtn = document.getElementById("jsSave");
 
+const winWidth = window.innerWidth;
+const winHeight = window.innerHeight;
+
 const INITIAL_COLOR = "#2c2c2c";
-const CANVAS_WIDTH = 700;
-const CANVAS_HEIGHT = 500;
+const CANVAS_WIDTH = winWidth * 0.9;
+const CANVAS_HEIGHT = winHeight * 0.8;
 
 let painting = false;
 let filling = false;
@@ -76,6 +80,10 @@ function handleCM(event) {
 	event.preventDefault();	//우클릭방지
 }
 
+function handleClearClick() {
+	ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
+
 function handleSaveClick() {
 	const image = canvas.toDataURL();
 	const link = document.createElement("a");
@@ -84,6 +92,7 @@ function handleSaveClick() {
 	//console.log(link);
 	link.click();
 }
+
 
 if(canvas){
 	canvas.addEventListener("mousemove", onMouseMove);
@@ -102,6 +111,10 @@ if(range){
 
 if(mode){
 	mode.addEventListener("click", handleModeClick)
+}
+
+if(clearBtn) {
+	clearBtn.addEventListener("click", handleClearClick);
 }
 
 if(saveBtn) {

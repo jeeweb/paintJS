@@ -6,38 +6,58 @@ body{
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-	padding: 50px 0;
+	padding: 24px 0;
 }
 
 .canvas{
-	width: 700px;
-	height: 500px;
+	width: 90vw;
+	height: 80vh;
 	background-color: #fff;
 	border-radius: 15px;
 	box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08)
 }
 
 .controls{
-	margin-top: 6vh;
-	width: 60vw;
+	position: fixed;
+	bottom: 24px;
+	border: 1px solid rgba(0, 0, 0, 0.1);
 	display: flex;
-	flex-direction: column;
 	align-items: center;
 }
 
-.controls .controls__range{
-	margin-bottom: 30px;
+.controls > div{
+	padding: 16px;
 }
 
-.controls .controls__btns{
-	margin-bottom: 30px;
+.controls > div + div{
+	border-left: 1px solid rgba(0, 0, 0, 0.1);
 }
+
+
+.controls .controls__colors{
+	display: flex;
+}
+.controls__color{
+	width: 5vw;
+	height: 28px;
+	cursor: pointer;
+	box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.controls__range p{
+	color: rgba(0, 0, 0, 0.7);
+	text-transform: uppercase;
+	font-weight: 800;
+	font-size: 12px;
+	padding-bottom: 8px;
+}
+
 .controls__btns button{
 	all: unset;
 	cursor: pointer;
 	background-color: #fff;
-	padding: 8px 0px;
-	width: 80px;
+	padding: 13px 0px;
+	width: 64px;
 	text-align: center;
 	border-radius: 10px;
 	box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
@@ -46,22 +66,12 @@ body{
 	text-transform: uppercase;
 	font-weight: 800;
 	font-size: 12px;
+	transition: border-color 0.3s;
+}
+.controls__btns button:hover{
+	color: #5856d6;
+	border-color: #5856d6;
 }
 .controls__btns button:active {
 	transform: scale(0.98);
-}
-
-.controls .controls__colors{
-	max-width: 100%;
-	display: flex;
-}
-.controls__color{
-	width: 48px;
-	height: 48px;
-	border-radius: 12px;
-	cursor: pointer;
-	box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
-}
-.controls__color + .controls__color{
-	margin-left: 16px;
 }
