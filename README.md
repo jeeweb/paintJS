@@ -1,2 +1,7 @@
 # paintJS
-Nomad Coders -Painting Board made with Vanilla JS 
+Painting Board made with Vanilla JS 
+
+## Function
+- Draw
+- Fill canvas
+- Save to PNG file
