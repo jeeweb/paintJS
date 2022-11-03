@@ -1,3 +1,4 @@
+const textInput = document.getElementById("text");
 const fileInput = document.getElementById("file");
 const modeBtn = document.getElementById("mode-btn");
 const destroyBtn = document.getElementById("destroy-btn");
@@ -14,6 +15,7 @@ const CANVAS_HEIGHT = 800;
 canvas.width = CANVAS_WIDTH;
 canvas.height = CANVAS_HEIGHT;
 ctx.lineWidth = lineWidth.value;
+ctx.lineCap = "round"
 let isPainting = false;
 let isFilling = false;
 
@@ -95,9 +97,27 @@ function onFileChange(event) {
     ctx.drawImage(image, 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
     fileInput.value = null; // file input을 비워줌
   }
-
 }
 
+function onDoubleClick(event) {
+  const text = textInput.value;
+
+  if (text !== "") {  // input에 어떠한 text도 없으면 아무일도 일어나지 않게 하기
+    ctx.save(); // ctx의 현재상태, 색상, 스타일 등 모든것을 저장해줌
+    // console.log(event.offsetX, event.offsetY);  // 마우스가 클릭한 지점의 좌표값
+    
+    ctx.lineWidth = 1;  // 글씨가 잘 보이게 하기 위해 lineWidth조정
+    ctx.font = "48px serif"; // 글씨 size와 fon-family를 지정할 수 있음
+    // ctx.strokeText(text, event.offsetX, event.offsetY);  // 글씨 테두리만 보여줌
+    ctx.fillText(text, event.offsetX, event.offsetY);
+    
+    //글씨를 보여준 후 기존에 가지고 있던 lineWidth로 돌아가야함
+    ctx.restore();  // save 했던 시점으로 돌아감 -> save와 restore 사이에서의 수정은 저장 되지 않음
+  }
+ 
+}
+
+canvas.addEventListener("dblclick", onDoubleClick);
 canvas.addEventListener("mousemove", onMove);
 // canvas.onmousemove = onMove 로 표현할 수 있음
 canvas.addEventListener("mousedown", startPainting);
