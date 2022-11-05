@@ -1,3 +1,4 @@
+const saveBtn = document.getElementById("save");
 const textInput = document.getElementById("text");
 const fileInput = document.getElementById("file");
 const modeBtn = document.getElementById("mode-btn");
@@ -114,7 +115,17 @@ function onDoubleClick(event) {
     //글씨를 보여준 후 기존에 가지고 있던 lineWidth로 돌아가야함
     ctx.restore();  // save 했던 시점으로 돌아감 -> save와 restore 사이에서의 수정은 저장 되지 않음
   }
- 
+}
+
+function onSaveClick() {
+  // console.log(canvas.toDataURL());  // 이미지를 base64로 인코딩해줌 -> 링크생성
+  const url = canvas.toDataURL();
+
+  // a태그 안에 있는 download 속성을 이용하여 파일을 다운로드 할 수 있게 해줌
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "myDrawing.png";
+  a.click();
 }
 
 canvas.addEventListener("dblclick", onDoubleClick);
@@ -134,3 +145,4 @@ modeBtn.addEventListener("click", onModeClick);
 destroyBtn.addEventListener("click", onDestroyClick);
 eraserBtn.addEventListener("click", onEraserClick);
 fileInput.addEventListener("change", onFileChange);
+saveBtn.addEventListener("click", onSaveClick);
