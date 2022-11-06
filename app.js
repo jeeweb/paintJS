@@ -92,7 +92,7 @@ function onFileChange(event) {
   const file = event.target.files[0];
   const url = URL.createObjectURL(file);
   // console.log(url);   // 유저가 선택한 이미지의 URL을 만들어 줌 
-  const image = new Image();  // <img src="" />
+  const image = new Image();  // document.createElement("img");
   image.src = url;
   image.onload = function() {
     ctx.drawImage(image, 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
