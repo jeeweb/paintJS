@@ -12,15 +12,21 @@ const colorOptions = Array.from(
 );
 const color = document.getElementById("color");
 const lineWidth = document.getElementById("line-width");
+const fontSize = document.getElementById("font-size");
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 
-const CANVAS_WIDTH = 600;
-const CANVAS_HEIGHT = 560;
+canvas.width = canvas.clientWidth;
+canvas.height = canvas.clientHeight;
 const WHITE_COLOR = "#ebecf0";
 
-canvas.width = CANVAS_WIDTH;
-canvas.height = CANVAS_HEIGHT;
+window.addEventListener("resize", function () {
+  if (canvas.clientWidth < 600) {
+    canvas.width = canvas.clientWidth;
+    canvas.height = canvas.clientHeight;
+  }
+});
+
 ctx.lineWidth = lineWidth.value;
 ctx.lineCap = "round";
 let isPainting = false;
@@ -95,14 +101,14 @@ function onModeClick(event) {
 
 function onCavasClick() {
   if (isFilling) {
-    ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
   }
 }
 
 function onDestroyClick(event) {
   onBtnClick(event);
   ctx.fillStyle = WHITE_COLOR;
-  ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
 function onEraserClick(event) {
@@ -122,7 +128,7 @@ function onFileChange(event) {
   const image = new Image(); // document.createElement("img");
   image.src = url;
   image.onload = function () {
-    ctx.drawImage(image, 0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
+    ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
     fileInput.value = null; // file input을 비워줌
   };
 }
@@ -173,9 +179,7 @@ canvas.addEventListener("click", onCavasClick);
 
 lineWidth.addEventListener("change", onLineWidthChange);
 color.addEventListener("change", onColorChange);
-
 colorOptions.forEach((color) => color.addEventListener("click", onColorClick));
-
 modeBtn.addEventListener("click", onModeClick);
 destroyBtn.addEventListener("click", onDestroyClick);
 eraserBtn.addEventListener("click", onEraserClick);
