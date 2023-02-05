@@ -1,30 +1,29 @@
 @import "./reset.css";
 
 body {
-  /* background-color: #eaeaea; */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 24px;
   background-color: #ebecf0;
-  padding: 20px;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
-    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  padding: 24px;
+  height: 100vh;
   color: #555;
   font-size: 12px;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  box-sizing: border-box;
 }
 
 .paint-options {
+  flex-shrink: 0;
   display: flex;
+  flex-direction: column;
   align-items: center;
-  gap: 8px;
-  padding: 16px;
-  margin-bottom: 16px;
-  border-radius: 8px;
-  /* background-color: #ebecf0;
-  box-shadow: -5px -5px 20px #fff, 5px 5px 20px #babecc; */
-}
-
-.paint-options > div {
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  justify-content: space-between;
+  max-width: 100px;
+  height: 560px;
+  box-sizing: border-box;
 }
 
 input[type="range"] {
@@ -32,7 +31,7 @@ input[type="range"] {
   appearance: none;
   background: transparent;
   cursor: pointer;
-  width: 120px;
+  width: 100%;
 }
 input[type="range"]::-webkit-slider-runnable-track {
   background: #bbb;
@@ -67,26 +66,27 @@ input#file {
 
 input#text {
   all: unset;
-  padding: 10px 0px;
+  padding: 10px 8px;
+  width: 100%;
   border-radius: 10px;
   font-weight: 500;
   text-align: center;
   background-color: #eaeaea;
   box-shadow: inset 2px 2px 5px #babecc, inset -1px -1px 2px #fff;
-  /* box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08); */
+  box-sizing: border-box;
 }
+input#text::placeholder {
+  color: #ccc;
+}
+
 .color-options {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  width: 120px;
-  /* padding: 8px;
-  box-shadow: -4px -4px 6px rgb(255 255 255 / 70%), 4px 4px 6px #c0c0de,
-    inset -4px -4px 12px rgb(255 255 255 / 10%), inset 4px 4px 12px #e8e8f3; */
 }
 .color-option {
-  width: 24px;
-  height: 24px;
+  width: 20px;
+  height: 20px;
   cursor: pointer;
   transition: transform ease-in-out 0.1s;
   box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
@@ -119,36 +119,120 @@ input#text {
   flex-direction: column;
   gap: 8px;
 }
+.select-size > span {
+  font-size: 10px;
+}
+
 .btn {
   all: unset;
   display: flex;
   flex-direction: column;
   align-items: center;
   gap: 4px;
-  padding: 10px 8px;
-  min-width: 64px;
+  padding: 10px 0;
+  width: 100%;
   border-radius: 8px;
   cursor: pointer;
   transition: opacity linear 0.1s;
   box-sizing: border-box;
   box-shadow: -4px -4px 6px rgb(255 255 255 / 70%), 4px 4px 6px #c0c0de,
     inset -4px -4px 12px rgb(255 255 255 / 10%), inset 4px 4px 12px #e8e8f3;
+  transition: box-shadow 0.2s ease;
 }
 .btn .fas {
   font-size: 16px;
+  transition: transform 0.2s;
+}
+.btn.on {
+  color: #3867d6;
+  box-shadow: -4px -4px 10px rgb(255 255 255 / 20%), 4px 4px 6px #e8e8f3,
+    inset -4px -4px 12px rgb(255 255 255 / 60%),
+    inset -2px -2px 2px rgb(255 255 255 / 20%), inset 4px 4px 6px #c6c6e2;
+}
+.btn.on .fas {
+  transform: rotate(16deg);
 }
 
 canvas {
-  height: 550px;
-  width: 100%;
+  height: 560px;
+  width: 600px;
   border-radius: 32px;
   background-color: #ebecf0;
-  box-shadow: 0px -4px 6px rgb(255 255 255 / 70%), 0px 4px 6px #c0c0de,
-    inset 0px -4px 12px rgb(255 255 255 / 10%), inset 0px 4px 12px #e8e8f3;
+  box-shadow: -6px -6px 10px rgb(255 255 255 / 60%), 4px 4px 18px #c0c0de,
+    inset -8px -8px 16px rgb(255 255 255 / 10%), inset 8px 8px 18px #e8e8f3;
 }
 
-@media (max-width: 1026px) {
-  .paint-options {
+@media (max-width: 772px) {
+  body {
     flex-direction: column;
+    gap: 8px;
+  }
+  .paint-options {
+    justify-content: center;
+    flex-direction: row;
+    flex-wrap: wrap;
+    max-width: 600px;
+    height: auto;
+    gap: 8px;
+  }
+  .select-color {
+    width: 36px;
+    height: 40px;
+    padding: 4px;
+  }
+  .color-options {
+    max-width: 100px;
+  }
+  .select-size {
+    width: 100px;
+  }
+  .btn {
+    flex-direction: row;
+    justify-content: center;
+    width: auto;
+    padding: 10px 12px;
+    min-width: 82px;
+  }
+  input#text {
+    width: 192px;
+  }
+}
+
+@media (max-width: 648px) {
+  body {
+    gap: 8px;
+  }
+  .paint-options {
+    max-width: 100%;
+  }
+  .color-options {
+    max-width: 90px;
+  }
+  .color-option {
+    width: 18px;
+    height: 18px;
+  }
+  canvas {
+    width: 100%;
+    height: calc(100vh - 116px);
+    border-radius: 16px;
+  }
+  .select-size {
+    width: 82px;
+  }
+  .btn {
+    min-width: 70px;
+  }
+  input#text {
+    width: 120px;
+  }
+}
+
+@media (max-width: 542px) {
+  canvas {
+    height: calc(100vh - 160px);
+  }
+  input#text {
+    width: 150px;
   }
 }

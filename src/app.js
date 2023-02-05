@@ -1,7 +1,10 @@
 const saveBtn = document.getElementById("save");
 const textInput = document.getElementById("text");
 const fileInput = document.getElementById("file");
+const btns = document.querySelectorAll(".btn");
 const modeBtn = document.getElementById("mode-btn");
+const modeBtnIcon = modeBtn.querySelector("i.fas");
+const modeBtnTxt = modeBtn.querySelector("span");
 const destroyBtn = document.getElementById("destroy-btn");
 const eraserBtn = document.getElementById("eraser-btn");
 const colorOptions = Array.from(
@@ -12,8 +15,9 @@ const lineWidth = document.getElementById("line-width");
 const canvas = document.querySelector("canvas");
 const ctx = canvas.getContext("2d");
 
-const CANVAS_WIDTH = 1000;
-const CANVAS_HEIGHT = 800;
+const CANVAS_WIDTH = 600;
+const CANVAS_HEIGHT = 560;
+const WHITE_COLOR = "#ebecf0";
 
 canvas.width = CANVAS_WIDTH;
 canvas.height = CANVAS_HEIGHT;
@@ -62,9 +66,19 @@ function onColorClick(event) {
   color.value = colorValue; // 선택한 색상을 input에 표시
 }
 
-function onModeClick() {
-  const modeBtnIcon = modeBtn.querySelector("i.fas");
-  const modeBtnTxt = modeBtn.querySelector("span");
+function onBtnClick(event) {
+  btns.forEach((btn) => {
+    if (btn.classList.contains("on")) btn.classList.remove("on");
+  });
+  if (event.target.classList.contains("btn")) {
+    event.target.classList.add("on");
+  } else {
+    event.target.parentElement.classList.add("on");
+  }
+}
+
+function onModeClick(event) {
+  onBtnClick(event);
 
   if (isFilling) {
     isFilling = false;
@@ -85,15 +99,19 @@ function onCavasClick() {
   }
 }
 
-function onDestroyClick() {
-  ctx.fillStyle = "white";
+function onDestroyClick(event) {
+  onBtnClick(event);
+  ctx.fillStyle = WHITE_COLOR;
   ctx.fillRect(0, 0, CANVAS_WIDTH, CANVAS_HEIGHT);
 }
 
-function onEraserClick() {
-  ctx.strokeStyle = "white";
+function onEraserClick(event) {
+  onBtnClick(event);
+  ctx.strokeStyle = WHITE_COLOR;
   isFilling = false;
-  modeBtn.innerText = "Fill";
+  modeBtnIcon.classList.remove("fa-paint-brush");
+  modeBtnIcon.classList.add("fa-fill");
+  modeBtnTxt.innerText = "Fill";
 }
 
 function onFileChange(event) {
@@ -114,6 +132,12 @@ function onDoubleClick(event) {
 
   if (text !== "") {
     // input에 어떠한 text도 없으면 아무일도 일어나지 않게 하기
+
+    btns.forEach((btn) => {
+      if (btn.classList.contains("on")) btn.classList.remove("on");
+    });
+    modeBtn.classList.add("on");
+
     ctx.save(); // ctx의 현재상태, 색상, 스타일 등 모든것을 저장해줌
     // console.log(event.offsetX, event.offsetY);  // 마우스가 클릭한 지점의 좌표값
 
@@ -127,7 +151,8 @@ function onDoubleClick(event) {
   }
 }
 
-function onSaveClick() {
+function onSaveClick(event) {
+  onBtnClick(event);
   // console.log(canvas.toDataURL());  // 이미지를 base64로 인코딩해줌 -> 링크생성
   const url = canvas.toDataURL();
 
